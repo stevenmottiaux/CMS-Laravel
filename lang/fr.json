@@ -73,5 +73,21 @@
     "View comment": "Voir le commentaire",
     "View comments": "Voir les commentaires",
     "Whoops!": "Oups !",
-    "You are receiving this email because we received a password reset request for your account.": "Vous recevez cet e-mail car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte."
+    "You are receiving this email because we received a password reset request for your account.": "Vous recevez cet e-mail car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.",
+    "A comment has been created on your post": "Un commentaire a été ajouté à votre article",
+    "This comment is awaiting moderation.": "Ce commentaire est en attente de modération.",
+    "Manage this comment": "Gérer ce commentaire",
+    "by": "par",
+    "This is your first comment": "C'est votre premier commentaire",
+    "It will be validated by an administrator before it appears here": "Il sera validé par un administrateur avant de s'inscrire ici",
+    "comments": "commentaires",
+    "1 comment": "1 commentaire",
+    "Leave a comment": "Laissez un commentaire",
+    "Your comment": "Votre commentaire",
+    "Update your comment": "Modifier votre commentaire",
+    "Are you sure to delete this comment?": "Etes-vous sûr de vouloir supprimer ce commentaire ?",
+    "Comments": "Commentaires",
+    "Modify": "Modifier",
+    "Delete": "Supprimer",
+    "Save": "Enregistrer"
 }

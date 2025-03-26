@@ -40,7 +40,6 @@ new class extends Component {
             ])
             ->latest()
             ->get();
-            dd($this->comments);
     }
 }; ?>
 
@@ -84,12 +83,25 @@ new class extends Component {
             @endif
         </em>
     </div>
-
     <div id="bottom" class="relative items-center w-full py-5 mx-auto md:px-12 max-w-7xl">
-        @if ($commentsCount > 0)
-            <div class="flex justify-center">
-                <x-button label="{{ $commentsCount > 1 ? __('View comments') : __('View comment') }}" class="btn-outline" spinner wire:click="showComments" />
-            </div>
+        @if ($listComments)
+            <x-card title="{{ __('Comments') }}" shadow separator>
+                 Affichage des commentaires ici !
+                @auth
+                    <livewire:posts.commentBase :postId="$post->id" />
+                @endauth
+            </x-card>
+        @else
+            @if ($commentsCount > 0)
+                <div class="flex justify-center">
+                    <x-button label="{{ $commentsCount > 1 ? __('View comments') : __('View comment') }}"
+                        wire:click="showComments" class="btn-outline" spinner />
+                </div>
+            @else
+                @auth
+                    <livewire:posts.commentBase :postId="$post->id" />
+                @endauth
+            @endif
         @endif
     </div>
 </div>
