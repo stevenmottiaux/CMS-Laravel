@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Models\{Category, Post};
+use App\Models\{Category, Post, User};
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
 
@@ -46,7 +47,17 @@ class PostRepository
                 END AS excerpt",
 			)
 			->with('user:id,name', 'category')
-			->whereActive(true);
+			->whereActive(true)
+			->when(Auth::check(), function ($query) {
+				$userId = Auth::id();
+				$query->addSelect([
+					'is_favorited' => DB::table('favorites')
+						->selectRaw('1')
+						->whereColumn('post_id', 'posts.id')
+						->where('user_id', $userId)
+						->limit(1)
+				]);
+			});	
 	}
 
 	public function getPostBySlug(string $slug): Post
@@ -71,6 +82,16 @@ class PostRepository
 			->where(function ($query) use ($search) {
 				$query->where('body', 'like', "%{$search}%")->orWhere('title', 'like', "%{$search}%");
 			})
+			->paginate(config('app.pagination'));
+	}
+
+	public function getFavoritePosts(User $user): LengthAwarePaginator
+	{
+		return $this->getBaseQuery()
+			->whereHas('favoritedByUsers', function (Builder $query) use ($user) {
+				$query->where('user_id', Auth::id());
+			})
+			->latest()
 			->paginate(config('app.pagination'));
 	}
 }

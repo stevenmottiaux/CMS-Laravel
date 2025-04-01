@@ -42,22 +42,22 @@ new class extends Component {
             ->get();
     }
 
-    public function favorite(): void
+    public function favoritePost(): void
     {
         $user = auth()->user();
 
         if ($user) {
-            $user->favoritesPosts()->attach($this->post->id);
+            $user->favoritePosts()->attach($this->post->id);
             $this->post->is_favorited = true;
         }
     }
 
-    public function unfavorite(): void
+    public function unfavoritePost(): void
     {
         $user = auth()->user();
 
         if ($user) {
-            $user->favoritesPosts()->detach($this->post->id);
+            $user->favoritePosts()->detach($this->post->id);
             $this->post->is_favorited = false;
         }
     }
@@ -94,6 +94,14 @@ new class extends Component {
             </x-slot:trigger>
             <x-slot:content class="pop-small">
                 @lang('Show this category')
+            </x-slot:content>
+        </x-popover>
+        <x-popover>
+            <x-slot:trigger>
+                <a href="#bottom"><x-icon name="c-arrow-long-down" /></a>
+            </x-slot:trigger>
+            <x-slot:content class="pop-small">
+                @lang('To bottom')
             </x-slot:content>
         </x-popover>
     </div>
@@ -142,5 +150,13 @@ new class extends Component {
                 @endauth
             @endif
         @endif
+        <x-popover>
+            <x-slot:trigger>
+                <a href="#top"><x-icon name="c-arrow-long-up" />
+            </x-slot:trigger>
+            <x-slot:content class="pop-small">
+                @lang('To up')
+            </x-slot:content>
+        </x-popover>
     </div>
 </div>

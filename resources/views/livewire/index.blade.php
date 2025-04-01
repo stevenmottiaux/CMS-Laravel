@@ -11,6 +11,7 @@ new class extends Component {
 
     public ?Category $category = null;
     public string $param = '';
+    public bool $favorites = false;
 
     public function mount(string $slug = '', string $param = ''): void
 	{
@@ -18,8 +19,9 @@ new class extends Component {
 
 		if (request()->is('category/*')) {
 			$this->category = $this->getCategoryBySlug($slug);
-		} 
-		
+		} elseif (request()->is('favorites')) {
+			$this->favorites = true;
+		}
 	}
 
 	public function getPosts(): LengthAwarePaginator
@@ -28,6 +30,10 @@ new class extends Component {
 
 		if (!empty($this->param)) {
 			return $postRepository->search($this->param);
+		}
+
+		if ($this->favorites) {
+			return $postRepository->getFavoritePosts(Auth::user());
 		}
 
 		return $postRepository->getPostsPaginate($this->category);
@@ -52,6 +58,8 @@ new class extends Component {
         <x-header title="{{ __('Posts for category ') }} {{ $category->title }}" size="text-2xl sm:text-3xl md:text-4xl" />
     @elseif($param !== '')
         <x-header title="{{ __('Posts for search ') }} {{ $param }}" size="text-2xl sm:text-3xl md:text-4xl" />
+    @elseif($favorites)
+        <x-header title="{{ __('Your favorites posts') }}" size="text-2xl sm:text-3xl md:text-4xl" />
     @endif
 
     <div class="mb-4 mary-table-pagination">
@@ -84,6 +92,9 @@ new class extends Component {
                     <x-slot:menu>
                         @if ($post->pinned)
                             <x-badge value="{{ __('Pinned') }}" class="p-3 badge-warning" />
+                        @endif
+                        @if ($post->is_favorited)
+                        <x-icon name="s-star" class="w-6 h-6 text-yellow-500 cursor-pointer" />
                         @endif
                     </x-slot:menu>
     
