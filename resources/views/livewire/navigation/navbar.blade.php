@@ -39,6 +39,7 @@ new class extends Component {
                     <x-slot:trigger>
                         <x-button label="{{ $user->name }}" class="btn-ghost" />
                     </x-slot:trigger>
+                    <x-menu-item title="{{ __('Profile') }}" link="/profile" />
                     <x-menu-item title="{{ __('Logout') }}" wire:click="logout" />
                 </x-dropdown>
             @else

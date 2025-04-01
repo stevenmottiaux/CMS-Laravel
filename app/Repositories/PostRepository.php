@@ -5,7 +5,9 @@ namespace App\Repositories;
 use App\Models\{Category, Post};
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 use Exception;
+
 
 class PostRepository
 {
@@ -49,8 +51,16 @@ class PostRepository
 
 	public function getPostBySlug(string $slug): Post
 	{
+
+		$userId = Auth::id();
+
 		return Post::with('user:id,name', 'category')
 			->withCount('validComments')
+			->withExists([
+				'favoritedByUsers as is_favorited' => function ($query) use ($userId) {
+					$query->where('user_id', $userId);
+				},
+			])
 			->whereSlug($slug)->firstOrFail();
 	}
 

@@ -89,5 +89,15 @@
     "Comments": "Commentaires",
     "Modify": "Modifier",
     "Delete": "Supprimer",
-    "Save": "Enregistrer"
+    "Save": "Enregistrer",
+    "Update profile": "Modifier le profil",
+    "Your name can't be changed": "Votre nom ne peut pas être modifié",
+    "You can change your profile picture on Gravatar": "Vous pouvez changer votre image de profil sur Gravatar",
+    "Generate a secure password": "Créer un mot de passe sécurisé",
+    "Profile updated with success.": "Profil mis à jour avec succès.",
+    "Delete account": "Supprimer le compte",
+    "Are you sure to delete your account?": "Etes-vous sûr de vouloir supprimer votre compte ?",
+    "Profile": "Profil",
+    "Bookmark this post": "Marquer cet article",
+    "Remove from favorites": "Supprimer des favoris"
 }
