@@ -55,9 +55,19 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->role === 'admin';
+    }
+
+    public function isRedac(): bool
+    {
+        return $this->role === 'redac';
+    }
+
+    public function isAdminOrRedac(): bool
+    {
+        return $this->isAdmin() || $this->isRedac();
     }
 
     public function comments(): HasMany

@@ -2,6 +2,7 @@
 
 use Livewire\Volt\Volt;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\IsAdminOrRedac;
 
 Volt::route('/', 'index');
 Volt::route('/category/{slug}', 'index');
@@ -20,4 +21,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Volt::route('/profile', 'auth.profile')->name('profile');
     Volt::route('/favorites', 'index')->name('posts.favorites');
+
+    Route::middleware(IsAdminOrRedac::class)->prefix('admin')->group(function () {
+		Volt::route('/dashboard', 'admin.index')->name('admin');
+		Volt::route('/posts/index', 'admin.posts.index')->name('posts.index');
+	});
 });

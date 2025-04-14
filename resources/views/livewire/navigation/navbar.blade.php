@@ -41,6 +41,9 @@ new class extends Component {
                     </x-slot:trigger>
                     <x-menu-item title="{{ __('Profile') }}" link="/profile" />
                     <x-menu-item title="{{ __('Logout') }}" wire:click="logout" />
+                    @if ($user->isAdminOrRedac())
+                        <x-menu-item title="{{ __('Administration') }}" link="{{ route('admin') }}" />
+                    @endif
                 </x-dropdown>
             @else
                 <x-button label="{{ __('Login') }}" link="/login" class="btn-ghost" />
